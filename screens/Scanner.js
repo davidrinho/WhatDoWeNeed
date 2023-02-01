@@ -4,7 +4,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 
 
 
-const Scanner = () => {
+const Scanner = ({navigation}) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
   
@@ -19,7 +19,13 @@ const Scanner = () => {
   
     const handleBarCodeScanned = ({ type, data }) => {
       setScanned(true);
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      navigation.navigate('Home', {
+        type: type,
+        data: data
+      });
+
+
     };
   
     if (hasPermission === null) {
@@ -31,7 +37,6 @@ const Scanner = () => {
   
     return (
       <View style={styles.container}>
-        <Button title={'CLOSE'} style={styles.buttons} />
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={styles.scanner}
@@ -54,19 +59,13 @@ const styles = StyleSheet.create({
   },
   scanner: {
     width: '100%',
-    height: '50%',
+    height: '80%',
     alignSelf: 'center'
   },
   text: {
     alignSelf: 'center',
     fontSize: '50px',
     position: 'absolute',
-    color: 'white'
-  },
-  buttons: {
-    fontSize: '50px',
-    position: 'absolute',
-    alignSelf: 'center',
     color: 'white'
   }
 })
