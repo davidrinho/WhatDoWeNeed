@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import Home from './screens/Home';
+import Scanner from './screens/Scanner';
 import { Text, View, StyleSheet, Button } from 'react-native';
-import Scanner from './components/Scanner';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   const [showScanner, setShowScanner] = useState(false);
 
   return (
-    <View style={styles.container}>
-      {showScanner ? <Scanner /> : ""}
-      <Button title={'Tap to Scan Barcodes'} onPress={() => setShowScanner(true)} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Scanner" component={Scanner} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -19,10 +28,5 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'black',
     justifyContent: 'center'
-  },
-  scanner: {
-    width: '50%',
-    height: '50%',
-    alignSelf: 'center'
   }
 })
