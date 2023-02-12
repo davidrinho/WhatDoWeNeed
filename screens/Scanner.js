@@ -39,14 +39,14 @@ const Scanner = ({navigation}) => {
       console.log(itemBarcode);
       if (productName && itemBarcode) {
         try {
-          let response = await fetch("http://192.168.0.11:5036/products", {
+          let response = await fetch("http://192.168.0.11:5056/products", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              Barcode: itemBarcode,
-              Name: productName
+              Barcode: itemBarcode.toString(),
+              Name: productName.toString()
             })
           });
           let responseJson = await response.json();
